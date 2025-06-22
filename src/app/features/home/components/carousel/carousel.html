@@ -1,0 +1,21 @@
+<c-carousel>
+  <c-carousel-indicators />
+  <c-carousel-inner>
+    @for (slide of slides; track slide.src) {
+      <c-carousel-item>
+        <img
+          [alt]="slide.title"
+          class="img-slide"
+          loading="lazy"
+          [src]="slide.src"
+        />
+        <c-carousel-caption class="d-none d-md-block">
+          <h3>{{ slide.title }}</h3>
+          <p>{{ slide.subtitle }}</p>
+        </c-carousel-caption>
+      </c-carousel-item>
+    }
+  </c-carousel-inner>
+  <c-carousel-control caption="Previous" direction="prev" />
+  <c-carousel-control caption="Next" direction="next" />
+</c-carousel>
