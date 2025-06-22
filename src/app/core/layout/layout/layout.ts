@@ -8,5 +8,17 @@ import {RouterLink, RouterOutlet} from '@angular/router';
   styleUrl: './layout.scss'
 })
 export class Layout {
+  menuOpen: boolean = false;
 
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+    document.body.style.overflow = this.menuOpen ? 'hidden' : '';
+  }
+
+  closeMenu() {
+    this.menuOpen = false;
+    document.body.style.overflow =''
+
+
+  }
 }

@@ -1,13 +1,22 @@
 <header>
-  <nav class="navbar">
-    <a routerLink="/">EcoRide</a>
-    <ul class="nav-links">
-      <li><a routerLink="/">Accueil</a></li>
-      <li><a routerLink="/rides">Covoiturages</a></li>
-      <li><a routerLink="/">Connexion</a></li>
-    </ul>
-  </nav>
+  <a routerLink="/" class="logo">EcoRide</a>
+
+  <button  class="burger" [class.open]="menuOpen" (click)="toggleMenu()" aria-label="Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <ul class="nav-links" [class.open]="menuOpen">
+    <li><a routerLink="/" (click)="closeMenu()">Accueil <span class="arrow">›</span></a></li>
+    <li><a routerLink="/rides" (click)="closeMenu()">Covoiturages <span class="arrow">›</span></a></li>
+    <li><a routerLink="/connexion" (click)="closeMenu()">Connexion <span class="arrow">›</span></a></li>
+    <li><a routerLink="/inscription" (click)="closeMenu()">Inscription <span class="arrow">›</span></a></li>
+  </ul>
+
+
 </header>
+
 
 <main>
   <router-outlet></router-outlet>

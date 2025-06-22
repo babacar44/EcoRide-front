@@ -5,3 +5,24 @@
 
 // Import Chart.js custom tooltips styles
 @use '@coreui/chartjs/scss/coreui-chartjs' as *;
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: #2b2e4a;
+  background-color: #fff;
+  font-size: 16px;
+  margin: 0;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  color: #2b2e4a;
+}
+
+button, .btn {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+}
