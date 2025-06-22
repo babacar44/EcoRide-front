@@ -23,11 +23,86 @@ a {
   color: #333;
 }
 
-footer {
-  text-align: center;
-  padding: 1rem;
-  border-top: 1px solid #ddd;
-  margin-top: 2rem;
-  font-size: 0.9rem;
-  color: #777;
+.main-footer {
+  background-color: #2b2e4a;
+  color: #fff;
+  padding: 2rem 1rem 1rem;
+
+  .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-brand,
+  .footer-links,
+  .footer-social {
+    flex: 1 1 200px;
+
+    h2 {
+      color: #4caf50;
+      font-size: 1.5rem;
+    }
+
+    h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    p, ul {
+      font-size: 0.95rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        margin-bottom: 0.3rem;
+
+        a {
+          color: #fff;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    .icons {
+      display: flex;
+      gap: 1rem;
+
+      a {
+        color: #fff;
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin-top: 2rem;
+    padding-top: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+
+    a {
+      color: #4caf50;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    p {
+      margin: 0.3rem 0;
+    }
+  }
 }
+

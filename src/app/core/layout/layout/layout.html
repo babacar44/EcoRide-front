@@ -13,6 +13,40 @@
   <router-outlet></router-outlet>
 </main>
 
-<footer>
-  <p>© 2025 EcoRide</p>
+<footer class="main-footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <h2>EcoRide</h2>
+      <p>Voyagez de manière écologique et économique.</p>
+    </div>
+
+    <div class="footer-links">
+      <h3>Liens utiles</h3>
+      <ul>
+        <li><a routerLink="/">Accueil</a></li>
+        <li><a routerLink="/rides">Covoiturages</a></li>
+        <li><a routerLink="/about">À propos</a></li>
+        <li><a routerLink="/contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-social">
+      <h3>Suivez-nous</h3>
+      <div class="icons">
+        <a href="#"><i class="bi bi-facebook"></i></a>
+        <a href="#"><i class="bi bi-twitter-x"></i></a>
+        <a href="#"><i class="bi bi-instagram"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 EcoRide. Tous droits réservés.</p>
+    <p>
+      Contactez-nous :
+      <a href="mailto:contact@ecoride.fr">contact&#64;ecoride.fr</a> |
+      <a routerLink="/mentions-legales">Mentions légales</a>
+    </p>
+  </div>
 </footer>
+
