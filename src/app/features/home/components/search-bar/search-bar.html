@@ -1,12 +1,24 @@
-<section class="search-section">
+<section class="search-section sticky-mobile">
   <div>
     <h2 class="search-title">Où allez-vous ?</h2>
-    <form class="search-bar" (submit)="search()">
-      <input type="text" placeholder="Départ" [(ngModel)]="departure" name="departure" required />
-      <input type="text" placeholder="Destination" [(ngModel)]="destination" name="destination" required />
-      <input type="date" [(ngModel)]="travelDate" name="travelDate" required />
-      <input type="number" min="1" [(ngModel)]="passengers" name="passengers" placeholder="Passagers" />
-      <button type="submit">Rechercher</button>
-    </form>
+
+    <!-- Version desktop -->
+    @if (!isMobile) {
+      <form class="search-bar" (submit)="search()">
+        <input type="text" placeholder="Départ" [(ngModel)]="departure" name="departure" required />
+        <input type="text" placeholder="Destination" [(ngModel)]="destination" name="destination" required />
+        <input type="date" [(ngModel)]="travelDate" name="travelDate" required />
+        <input type="number" min="1" [(ngModel)]="passengers" name="passengers" placeholder="Passagers" />
+        <button type="submit">Rechercher</button>
+      </form>
+    }
+
+    <!-- Version compacte mobile (sticky) -->
+    @else {
+      <form class="search-bar compact" (submit)="search()">
+        <input type="text" placeholder="Destination" [(ngModel)]="destination" name="destination" required />
+        <button type="submit">🔍</button>
+      </form>
+    }
   </div>
 </section>

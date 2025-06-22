@@ -29,13 +29,13 @@ export class Carousel {
   constructor() {
     this.slides[0] = {
       id: 0,
-      src: 'assets/slides/slide1.jpg',
+      src: 'assets/slides/slide3.jpg',
       title: 'Réduisez votre empreinte carbone',
       subtitle: 'Voyagez de maniére écologique avec EcoRide.'
     };
     this.slides[1] = {
       id: 1,
-      src: 'assets/slides/slide2.jpg',
+      src: 'assets/slides/slide3.jpg',
       title: 'Economiser sur vos trajets',
       subtitle: 'Des prix avantageux pour tous les trajets.',
     };
