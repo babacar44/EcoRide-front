@@ -1,0 +1,34 @@
+<section class="covoiturages-page">
+  <app-search-bar (searchTriggered)="onSearchTriggered($event)" />
+
+<!--
+  @if (loading()){
+    <div>Chargement ...</div>
+  }
+
+  @if (!loading() && covoiturages().length > 0) {
+    <div>
+
+      <h3>Trajets trouvés :</h3>
+      <ul>
+        @for (trajet of covoiturages(); track trajet.covoiturageId){
+          <li>
+            {{ trajet.lieuDepart }} → {{ trajet.lieuArrivee }} ({{ trajet.heureDepart }}) — {{ trajet.prixPersonne }} €
+          </li>
+        }
+      </ul>
+    </div>
+  }
+  @if (!loading() && covoiturages().length === 0 && searchCriteria()) {
+    <div>
+      Aucun covoiturage trouvé.
+    </div>
+  }
+-->
+
+</section>
+
+<section>
+  <app-covoiturages-list [covoiturages]="covoiturages()"></app-covoiturages-list>
+</section>
+

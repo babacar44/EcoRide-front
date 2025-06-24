@@ -6,6 +6,11 @@
 // Import Chart.js custom tooltips styles
 @use '@coreui/chartjs/scss/coreui-chartjs' as *;
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
   color: #2b2e4a;
@@ -13,7 +18,16 @@ body {
   font-size: 16px;
   margin: 0;
   line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
+
+
+main {
+  flex: 1;
+}
+
 
 h1, h2, h3, h4, h5 {
   font-family: 'Poppins', sans-serif;
