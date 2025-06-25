@@ -1,6 +1,7 @@
-import {Component, HostListener, output} from '@angular/core';
+import {Component, HostListener, inject, output} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-search-bar',
@@ -16,6 +17,7 @@ export class SearchBar {
   passengers = 1;
   isMobile: boolean = false;
 
+  readonly route = inject(ActivatedRoute);
   searchTriggered = output<{
     depart: string;
     arrivee: string;
@@ -36,6 +38,11 @@ export class SearchBar {
 
   constructor() {
     this.checkScreenWidth();
+    const query = this.route.snapshot.queryParamMap;
+    this.departure = query.get('depart') ?? '';
+    this.destination = query.get('arrivee') ?? '';
+    this.travelDate = query.get('date') ?? '';
+
   }
 
   @HostListener('window:resize')

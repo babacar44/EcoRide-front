@@ -14,6 +14,8 @@ export interface Covoiturage {
   prixPersonne: number;
   conducteur?: Utilisateur;
   voiture?: Voiture;
+  duree?: number; // durée calculée en minutes
+
 }
 
 

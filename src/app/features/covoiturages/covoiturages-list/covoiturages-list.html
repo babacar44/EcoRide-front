@@ -20,15 +20,15 @@
               {{ covoiturage.lieuDepart }} → {{ covoiturage.lieuArrivee }}
             </h5>
             <p class="card-text">
-              <i class="bi bi-calendar-event"></i> {{ covoiturage.dateDepart }}<br />
-              <i class="bi bi-clock"></i> {{ covoiturage.heureDepart }} → {{ covoiturage.heureArrivee }}<br />
-              <i class="bi bi-currency-euro"></i> {{ covoiturage.prixPersonne }} €<br />
-              <i class="bi bi-person-circle"></i> {{ covoiturage.conducteur?.prenom }} {{ covoiturage.conducteur?.nom }}<br />
-                <i class="bi bi-car-front"></i>
-                {{ covoiturage.voiture?.modele }}, {{ covoiturage.voiture?.couleur }} ({{ covoiturage.voiture?.energie }})<br />
-                <i class="bi bi-people-fill"></i>
-                {{ covoiturage.nbPlace }}
-
+              <i class="bi bi-calendar-event me-1"></i> {{ covoiturage.dateDepart }}<br />
+              <i class="bi bi-clock me-1"></i> {{ covoiturage.heureDepart }} → {{ covoiturage.heureArrivee }}<br />
+              <i class="bi bi-hourglass-split me-1"></i> {{ covoiturage.duree }} min<br />
+              <i class="bi bi-currency-euro me-1"></i> {{ covoiturage.prixPersonne }} €<br />
+              <i class="bi bi-person-circle me-1"></i> {{ covoiturage.conducteur?.prenom }} {{ covoiturage.conducteur?.nom }}<br />
+              <i class="bi bi-star-fill text-warning me-1"></i> {{ covoiturage.conducteur?.note }}/5<br />
+              <i class="bi bi-car-front me-1"></i>
+              {{ covoiturage.voiture?.modele }}, {{ covoiturage.voiture?.couleur }} ({{ covoiturage.voiture?.energie }})<br />
+              <i class="bi bi-people-fill me-1"></i> {{ covoiturage.nbPlace }} Places disponibles
             </p>
             <span class="badge bg-success">{{ covoiturage.statut }}</span>
           </div>

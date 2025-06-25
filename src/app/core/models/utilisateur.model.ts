@@ -7,4 +7,5 @@ export interface Utilisateur {
   photo?: string;
   suspendu?: boolean;
   credit?: number;
+  note?: number;
 }
