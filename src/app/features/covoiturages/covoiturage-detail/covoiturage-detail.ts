@@ -115,18 +115,40 @@ export class CovoiturageDetail {
 
     if (!result2.isConfirmed) return;
 
-    await Swal.fire({
-      icon: 'success',
-      title: 'Participation enregistrée !',
-      timer: 2000,
-      showConfirmButton: false,
-      customClass: {
-        popup: 'swal-popup',
-        title: 'swal-title'
-      }
-    });
+    this.covoiturageService
+      .participerAuCovoiturage(selected.covoiturageId)
+      .subscribe({
+        next: async () => {
+          await Swal.fire({
+            icon: 'success',
+            title: 'Participation enregistrée !',
+            timer: 2000,
+            showConfirmButton: false,
+            customClass: {
+              popup: 'swal-popup',
+              title: 'swal-title'
+            }
+          });
 
-    // TODO : logique réelle de participation
+          // Mise à jour locale
+          this.user.update(user => ({
+            ...user!,
+            credit: user!.credit - selected.prixPersonne
+          }));
+          this.covoiturage.update(c => ({
+            ...c!,
+            nbPlace: c!.nbPlace - 1
+          }));
+        },
+        error: async () => {
+          await Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: 'Impossible de valider la participation',
+            confirmButtonColor: '#4caf50'
+          });
+        }
+      });
   }
 
 

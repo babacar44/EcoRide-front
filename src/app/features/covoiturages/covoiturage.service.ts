@@ -26,4 +26,11 @@ export class CovoiturageService {
   setCovoiturages(data: Covoiturage[]) {
     this._covoiturages.set(data);
   }
+
+  participerAuCovoiturage(covoiturageId: number): Observable<void> {
+    return this.http.post<void>('http://localhost:8083/api/participations', {
+      covoiturageId
+    });
+  }
+
 }
