@@ -5,4 +5,5 @@ export interface Voiture {
   energie: string;
   couleur: string;
   datePremiereImmatriculation: string;
+  marque: string;
 }

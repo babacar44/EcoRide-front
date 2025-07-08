@@ -33,9 +33,10 @@
             <span class="badge bg-success">{{ covoiturage.statut }}</span>
           </div>
           <div class="card-footer bg-transparent border-0 text-end">
-            <button class="btn btn-outline-primary btn-sm">
+            <a [routerLink]="['/covoiturages', covoiturage.covoiturageId]"
+               class="btn btn-outline-primary btn-sm">
               Détails
-            </button>
+            </a>
           </div>
         </div>
       </div>

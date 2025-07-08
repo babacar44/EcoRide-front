@@ -6,6 +6,6 @@ export interface Utilisateur {
   pseudo: string;
   photo?: string;
   suspendu?: boolean;
-  credit?: number;
+  credit: number;
   note?: number;
 }

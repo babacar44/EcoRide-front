@@ -2,7 +2,7 @@ import {Component, computed, effect, inject, signal} from '@angular/core';
 import {SearchBar} from '../home/components/search-bar/search-bar';
 import {CovoituragesList} from './covoiturages-list/covoiturages-list';
 import {CommonModule} from '@angular/common';
-import {Covoiturage} from '../../core/models/covoiturage.model';
+import {Covoiturage, PreferencesConducteur} from '../../core/models/covoiturage.model';
 import {CovoiturageService} from './covoiturage.service';
 import {ActivatedRoute} from '@angular/router';
 import {Utilisateur} from "../../core/models/utilisateur.model";
@@ -30,8 +30,6 @@ export class Covoiturages {
     minRating: null as number | null
   });
   formFilters = { ...this.filters() };
-
-
 
   constructor() {
     // inject ActivatedRoute
@@ -73,8 +71,7 @@ export class Covoiturages {
                   }
                 };
               });
-
-              this.covoiturages.set(enriched);
+              this.covoiturageService.setCovoiturages(enriched);
             });
       }
     });
@@ -85,7 +82,7 @@ export class Covoiturages {
   }
 
   readonly filteredCovoiturages = computed(() => {
-    const list = this.covoiturages();
+    const list = this.covoiturageService.covoiturages();
     const { eco, maxPrice, maxDuration, minRating } = this.filters();
 
     return list.filter((covoit) => {

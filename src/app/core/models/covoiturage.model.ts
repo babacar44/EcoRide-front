@@ -19,3 +19,8 @@ export interface Covoiturage {
 }
 
 
+export interface PreferencesConducteur {
+  musique: boolean;
+  fumeur: boolean;
+  animaux: boolean;
+}
