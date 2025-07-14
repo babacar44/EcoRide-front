@@ -10,7 +10,7 @@ import {AuthService} from '../../services/auth.service';
 })
 export class Layout {
   menuOpen: boolean = false;
-  private auth = inject(AuthService);
+  protected auth = inject(AuthService);
   readonly isAuthenticated = this.auth.isAuthenticated;
   private router = inject(Router);
   toggleMenu() {

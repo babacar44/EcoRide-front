@@ -11,6 +11,7 @@ export interface Covoiturage {
   lieuArrivee: string;
   statut: string;
   nbPlace: number;
+  energie: string;
   prixPersonne: number;
   conducteur?: Utilisateur;
   voiture?: Voiture;

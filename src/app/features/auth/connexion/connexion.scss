@@ -68,3 +68,18 @@ section {
     }
   }
 }
+.user-space {
+  .card {
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  h2 {
+    font-family: 'Poppins', sans-serif;
+    color: #2b2e4a;
+  }
+
+  button {
+    transition: all 0.3s ease;
+  }
+}

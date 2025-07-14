@@ -1,0 +1,129 @@
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  font-family: 'Poppins', sans-serif;
+}
+
+h2 {
+  color: #4caf50;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  font-weight: 500;
+  color: #2b2e4a;
+}
+
+.form-control,
+.form-select {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+}
+
+.form-check-input {
+  border-radius: 4px;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  font-weight: 600;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #43a047;
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+}
+
+// ✅ Véhicules
+.border {
+  border: 1px solid #e0e0e0;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.rounded {
+  border-radius: 10px;
+}
+
+h5 {
+  color: #2b2e4a;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+// ✅ Bloc préférences
+.preferences-block {
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-top: 2rem;
+
+  .form-check-label {
+    margin-left: 0.5rem;
+  }
+
+  label {
+    font-weight: 500;
+    color: #2b2e4a;
+  }
+
+  input[type="text"] {
+    margin-top: 0.5rem;
+  }
+}
+
+// Validation style
+.text-danger {
+  font-size: 0.85rem;
+}
+
+// ✅ Responsive
+@media (max-width: 768px) {
+  .row.g-3 > .col-md-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+.user-space {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  font-family: 'Poppins', sans-serif;
+}
+
+
+label {
+  font-weight: 500;
+}

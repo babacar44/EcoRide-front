@@ -17,6 +17,14 @@
       <li><a (click)="handleLogout()">Déconnexion <span class="arrow">›</span></a></li>
     }
     <li><a routerLink="/inscription" (click)="closeMenu()">Contact <span class="arrow">›</span></a></li>
+    @if (auth.isAuthenticated()) {
+      <li>
+        <a routerLink="/espace-utilisateur">
+          <i class="bi bi-person-circle me-1"></i>
+          {{ auth.userPseudo() }}
+        </a>
+      </li>
+    }
   </ul>
 
 

@@ -70,6 +70,12 @@ export class CovoiturageDetail {
 
 
   async participer() {
+    if (!this.auth.isAuthenticated()) {
+      localStorage.setItem('pendingCovoiturage', JSON.stringify(this.covoiturage()));
+      localStorage.setItem('redirectAfterLogin', `/covoiturages/${this.covoiturage()?.covoiturageId}`);
+      this.router.navigate(['/connexion']);
+      return;
+    }
     const selected = this.covoiturage();
     const user = this.auth.getUserInfo();
 
@@ -140,11 +146,12 @@ export class CovoiturageDetail {
             nbPlace: c!.nbPlace - 1
           }));
         },
-        error: async () => {
+        error: async (err) => {
+          console.log(err)
           await Swal.fire({
             icon: 'error',
             title: 'Erreur',
-            text: 'Impossible de valider la participation',
+            text: err.error.message,
             confirmButtonColor: '#4caf50'
           });
         }
@@ -163,10 +170,15 @@ export class CovoiturageDetail {
   }
 
   afficherMessageSiCreditInsuffisant() {
-    const selected = this.covoiturage()
-    return (
-      // @ts-ignore
-      this.user().credit >= selected.prixPersonne
-    );
+    if (this.auth.isAuthenticated()){
+      const selected = this.covoiturage()
+      return (
+        // @ts-ignore
+        this.user().credit >= selected.prixPersonne
+      );
+    }else {
+      return true;
+
+    }
   }
 }

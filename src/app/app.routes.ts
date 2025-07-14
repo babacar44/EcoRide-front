@@ -6,6 +6,7 @@ import {Covoiturages} from './features/covoiturages/covoiturages';
 import {CovoiturageDetail} from './features/covoiturages/covoiturage-detail/covoiturage-detail';
 import {Connexion} from './features/auth/connexion/connexion';
 import {Inscription} from './features/auth/inscription/inscription';
+import {UserSpace} from './features/user-space/user-space';
 
 export const routes: Routes = [
   {
@@ -17,7 +18,8 @@ export const routes: Routes = [
       { path: 'covoiturages', component: Covoiturages },
       { path: 'covoiturages/:id', component: CovoiturageDetail },
       { path: 'connexion', component: Connexion },
-      { path: 'inscription', component: Inscription }
+      { path: 'inscription', component: Inscription },
+      { path: 'espace-utilisateur', component: UserSpace },
 
     ]
   }
