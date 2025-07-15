@@ -12,9 +12,6 @@ export class UserSpaceService {
 
   constructor(private http: HttpClient) {}
 
-  envoyerInfos(form: UserSpaceForm): Observable<void> {
-    return this.http.post<void>(this.apiUrl, form);
-  }
 
   getInfos(): Observable<UserSpaceForm> {
     return this.http.get<UserSpaceForm>(this.apiUrl);
@@ -27,5 +24,9 @@ export class UserSpaceService {
 
   supprimerVoiture(body: { immatriculation: string }): Observable<any> {
     return this.http.delete(this.apiUrl, {body : body});
+  }
+
+  saisirVoyage(data: {depart: string; arrivee: string; date: string; heureDepart: string; heureArrivee: string; prix: number; voitureId: null}) {
+
   }
 }

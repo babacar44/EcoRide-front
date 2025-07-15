@@ -1,0 +1,82 @@
+<div class="text-end mb-3">
+  <button class="btn btn-ecoride" type="button" (click)="activerVoyageForm()">Publier un nouveau trajet</button>
+</div>
+
+@if (voyageActive()) {
+  <form #form="ngForm" (ngSubmit)="envoyer(form)">
+    <div class="mb-3">
+      <label>Adresse de départ*</label>
+      <input type="text" class="form-control" required [(ngModel)]="voyagerFormData().lieuDepart" name="lieuDepart" required/>
+      @if (form.submitted && !form.controls['lieuDepart'].valid) {
+        <small class="text-danger">Champ requis</small>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label>Adresse d’arrivée*</label>
+      <input type="text" class="form-control" required [(ngModel)]="voyagerFormData().lieuArrivee" name="lieuArrivee" required/>
+      @if (form.submitted && !form.controls['lieuArrivee'].valid) {
+        <small class="text-danger">Champ requis</small>
+      }
+    </div>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-6">
+        <label>Date De Départ*</label>
+        <input type="date" class="form-control" required [(ngModel)]="voyagerFormData().dateDepart" name="dateDepart" required/>
+        @if (form.submitted && !form.controls['dateDepart'].valid) {
+          <small class="text-danger">Champ requis</small>
+        }
+      </div>
+      <div class="col-md-6">
+        <label>Date De Retour*</label>
+        <input type="date" class="form-control" required [(ngModel)]="voyagerFormData().dateArrivee" name="dateArrivee" required/>
+        @if (form.submitted && !form.controls['dateArrivee'].valid) {
+          <small class="text-danger">Champ requis</small>
+        }
+      </div>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label>Heure départ*</label>
+        <input type="time" class="form-control" required [(ngModel)]="voyagerFormData().heureDepart" name="heureDepart" required/>
+        @if (form.submitted && !form.controls['heureDepart'].valid) {
+          <small class="text-danger">Champ requis</small>
+        }
+      </div>
+      <div class="col-md-6">
+        <label>Heure arrivée*</label>
+        <input type="time" class="form-control" required [(ngModel)]="voyagerFormData().heureArrivee" name="heureArrivee" required/>
+        @if (form.submitted && !form.controls['heureArrivee'].valid) {
+          <small class="text-danger">Champ requis</small>
+        }
+      </div>
+    </div>
+    <div class="mb-3 mt-3">
+      <label>Prix par passager (€)*</label>
+      <input type="number" min="1" class="form-control" [(ngModel)]="voyagerFormData().prixPersonne" name="prixPersonne" required />
+      <small class="text-muted">2 crédits seront prélevés par la plateforme.</small><br/>
+      @if (form.submitted && !form.controls['prixPersonne'].valid) {
+        <small class="text-danger">Champ requis</small>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label>Véhicule*</label>
+      <select class="form-select" required [(ngModel)]="voyagerFormData().immatriculation" name="immatriculation" required>
+        <option [ngValue]="null">-- Sélectionner un véhicule --</option>
+        @for (v of voitures(); track v.immatriculation) {
+          <option [ngValue]="v.immatriculation">
+            {{ v.marque }} {{ v.modele }} - {{ v.immatriculation }}
+          </option>
+        }
+      </select>
+      @if (form.submitted && !form.controls['immatriculation'].valid) {
+        <small class="text-danger">Champ requis</small>
+      }
+    </div>
+
+    <button class="btn btn-success mt-3" [disabled]="form.invalid">Publier le trajet</button>
+  </form>
+}
