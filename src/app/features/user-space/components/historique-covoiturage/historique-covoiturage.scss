@@ -1,0 +1,75 @@
+.history-section {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 10px;
+
+  h5 {
+    color: #2b2e4a;
+    margin-bottom: 1rem;
+  }
+
+  .list-group-item {
+    font-size: 0.95rem;
+  }
+}
+
+.btn-ecoride {
+  display: inline-block;
+  width: 100%;
+  max-width: 280px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #4caf50;
+  color: white;
+  text-align: center;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #43a047;
+  }
+}
+
+.history {
+  .list-group-item {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #f9f9f9;
+    }
+
+    .details {
+      background-color: #f0fff4;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 0.5rem;
+      border: 1px solid #d0f0d8;
+    }
+  }
+
+  h5 {
+    color: #2b2e4a;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .badge {
+      font-size: 0.85rem;
+      padding: 0.4em 0.75em;
+    }
+
+    .text-muted {
+      font-size: 0.85rem;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}

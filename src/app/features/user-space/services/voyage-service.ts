@@ -24,7 +24,6 @@ export class VoyageService {
       ...data,
       voiture : {immatriculation: data.immatriculation}
     }
-    console.log(body);
     return this.http.post(this.apiUrl, body);
   }
 }

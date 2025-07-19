@@ -7,11 +7,12 @@ import { FormsModule } from '@angular/forms';
 import {VoitureFormulaire} from './components/voiture-formulaire/voiture-formulaire';
 import {VoyageForm} from './components/voyage-form/voyage-form';
 import {toSignal} from '@angular/core/rxjs-interop';
+import {HistoriqueCovoiturage} from './components/historique-covoiturage/historique-covoiturage';
 
 @Component({
   selector: 'app-user-space',
   standalone: true,
-  imports: [CommonModule, FormsModule, VoitureFormulaire, VoyageForm],
+  imports: [CommonModule, FormsModule, VoitureFormulaire, VoyageForm, HistoriqueCovoiturage],
   templateUrl: './user-space.html',
   styleUrl: './user-space.scss'
 })

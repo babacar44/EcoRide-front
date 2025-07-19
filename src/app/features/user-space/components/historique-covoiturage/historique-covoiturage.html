@@ -1,0 +1,168 @@
+@if (historiqueActivePassager()) {
+  <hr class="my-4" />
+}
+<div class="text-end mb-3">
+  <button class="btn btn-ecoride" type="button" (click)="activerHistoriquePassager()">Mes covoiturages</button>
+  @if (historiqueActivePassager()) {
+    <span>
+      @for (type of ['OUVERT', 'FERME', 'ANNULE']; track $index) {
+        @let trajets  = covoituragesParStatut()[type];
+        @let currentPage = pageCovoiturage()[type] ?? 1;
+        @let pageSize = 5;
+        @let totalPages = Math.ceil(trajets.length / pageSize);
+        @let paginated = trajets.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
+        <div class="mb-4">
+        <h5 class="d-flex align-items-center gap-2">
+          <span class="badge"
+                [ngClass]="{
+                  'bg-success': type === 'OUVERT',
+                  'bg-secondary': type === 'FERME',
+                  'bg-danger': type === 'ANNULE'
+                }">
+            {{ type }}
+          </span>
+          <span class="text-muted small">({{ trajets.length }} trajet{{ trajets.length > 1 ? 's' : '' }})</span>
+        </h5>
+
+        <ul class="list-group">
+          @for (trajet of paginated; track trajet.covoiturageId) {
+            <li class="list-group-item">
+              <div class="d-flex justify-content-between align-items-center" (click)="toggleDetails(trajet.covoiturageId)">
+                <span>{{ trajet.lieuDepart }} → {{ trajet.lieuArrivee }} ({{ trajet.dateDepart }})</span>
+                <i class="bi" [ngClass]="isOpen(trajet.covoiturageId) ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+              </div>
+
+              @if (isOpen(trajet.covoiturageId)) {
+                <div class="details mt-2">
+                  <p><strong>Heure :</strong> {{ trajet.heureDepart }} → {{ trajet.heureArrivee }}</p>
+                  <p><strong>Prix :</strong> {{ trajet.prixPersonne }} €</p>
+                  <p><strong>Voiture :</strong> {{ trajet.voiture?.marque }} {{ trajet.voiture?.modele }} ({{ trajet.voiture?.energie }})</p>
+                  <p><strong>Places :</strong> {{ trajet.nbPlace }} | <strong>Statut : </strong>
+                    <span class="badge"
+                          [ngClass]="{
+                            'bg-success': trajet.statut === 'OUVERT',
+                            'bg-secondary': trajet.statut === 'FERME',
+                            'bg-danger': trajet.statut === 'ANNULE'
+                          }">{{ trajet.statut }}</span>
+                  </p>
+                  <p><strong>Conducteur :</strong> {{ trajet.conducteur?.prenom }} {{ trajet.conducteur?.nom }}</p>
+                  @if (type === 'OUVERT') {
+                    <button class="btn btn-outline-danger btn-sm mt-2"
+                            (click)="annulerParticipation(trajet.covoiturageId)">
+                      Annuler
+                    </button>
+                  }
+                </div>
+              }
+            </li>
+          }
+
+          @if (trajets.length === 0) {
+            <li class="list-group-item text-muted">Aucun covoiturage {{ type.toLowerCase() }}.</li>
+          }
+        </ul>
+
+          <!-- Pagination -->
+        <div class="mt-2 d-flex justify-content-between">
+          <button class="btn btn-sm btn-outline-secondary"
+                  [disabled]="currentPage === 1"
+                  (click)="changerPageCovoiturage(type, currentPage - 1)">
+            Précédent
+          </button>
+          <button class="btn btn-sm btn-outline-secondary"
+                  [disabled]="currentPage === totalPages"
+                  (click)="changerPageCovoiturage(type, currentPage + 1)">
+            Suivant
+          </button>
+        </div>
+      </div>
+      }
+  </span>
+  }
+</div>
+
+@if (historiqueActiveTrajet()) {
+  <hr class="my-4" />
+}
+<div class="text-end mb-3">
+  <button class="btn btn-ecoride" type="button" (click)="activerHistoriqueTrajet()">Mes Trajets</button>
+  @if (historiqueActiveTrajet()) {
+    <span>
+      @for (type of ['OUVERT', 'FERME', 'ANNULE']; track $index) {
+      @let trajets  = trajetsParStatut()[type];
+      @let currentPage = pageCovoiturage()[type] ?? 1;
+      @let pageSize = 5;
+      @let totalPages = Math.ceil(trajets.length / pageSize);
+      @let paginated = trajets.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
+      <div class="mb-4">
+      <h5 class="d-flex align-items-center gap-2">
+        <span class="badge"
+              [ngClass]="{
+                'bg-success': type === 'OUVERT',
+                'bg-secondary': type === 'FERME',
+                'bg-danger': type === 'ANNULE'
+              }">
+          {{ type }}
+        </span>
+        <span class="text-muted small">({{ trajets.length }} trajet{{ trajets.length > 1 ? 's' : '' }})</span>
+      </h5>
+
+      <ul class="list-group">
+        @for (trajet of paginated; track trajet.covoiturageId) {
+          <li class="list-group-item">
+            <div class="d-flex justify-content-between align-items-center" (click)="toggleDetails(trajet.covoiturageId)">
+              <span>{{ trajet.lieuDepart }} → {{ trajet.lieuArrivee }} ({{ trajet.dateDepart }})</span>
+              <i class="bi" [ngClass]="isOpen(trajet.covoiturageId) ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+            </div>
+
+            @if (isOpen(trajet.covoiturageId)) {
+              <div class="details mt-2">
+                <p><strong>Heure :</strong> {{ trajet.heureDepart }} → {{ trajet.heureArrivee }}</p>
+                <p><strong>Prix :</strong> {{ trajet.prixPersonne }} €</p>
+                <p><strong>Voiture :</strong> {{ trajet.voiture?.marque }} {{ trajet.voiture?.modele }} ({{ trajet.voiture?.energie }})</p>
+                <p><strong>Places :</strong> {{ trajet.nbPlace }} | <strong>Statut : </strong>
+                  <span class="badge"
+                        [ngClass]="{
+                          'bg-success': trajet.statut === 'OUVERT',
+                          'bg-secondary': trajet.statut === 'FERME',
+                          'bg-danger': trajet.statut === 'ANNULE'
+                        }">{{ trajet.statut }}</span>
+                </p>
+                <p><strong>Conducteur :</strong> {{ trajet.conducteur?.prenom }} {{ trajet.conducteur?.nom }}</p>
+                @if (type === 'OUVERT') {
+                  <button class="btn btn-outline-danger btn-sm mt-2"
+                          (click)="annulerCovoiturage(trajet.covoiturageId)">
+                    Annuler
+                  </button>
+                }
+              </div>
+            }
+          </li>
+        }
+
+        @if (trajets.length === 0) {
+          <li class="list-group-item text-muted">Aucun covoiturage {{ type.toLowerCase() }}.</li>
+        }
+      </ul>
+
+        <!-- Pagination -->
+      <div class="mt-2 d-flex justify-content-between">
+        <button class="btn btn-sm btn-outline-secondary"
+                [disabled]="currentPage === 1"
+                (click)="changerPageCovoiturage(type, currentPage - 1)">
+          Précédent
+        </button>
+        <button class="btn btn-sm btn-outline-secondary"
+                [disabled]="currentPage === totalPages"
+                (click)="changerPageCovoiturage(type, currentPage + 1)">
+          Suivant
+        </button>
+      </div>
+    </div>
+    }
+    </span>
+  }
+
+</div>
