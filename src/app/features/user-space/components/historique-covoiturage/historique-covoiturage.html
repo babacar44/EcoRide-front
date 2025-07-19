@@ -38,7 +38,7 @@
                   <p><strong>Heure :</strong> {{ trajet.heureDepart }} → {{ trajet.heureArrivee }}</p>
                   <p><strong>Prix :</strong> {{ trajet.prixPersonne }} €</p>
                   <p><strong>Voiture :</strong> {{ trajet.voiture?.marque }} {{ trajet.voiture?.modele }} ({{ trajet.voiture?.energie }})</p>
-                  <p><strong>Places :</strong> {{ trajet.nbPlace }} | <strong>Statut : </strong>
+                  <p><strong>Places Disponibles :</strong> {{ trajet.nbPlace }} | <strong>Statut : </strong>
                     <span class="badge"
                           [ngClass]="{
                             'bg-success': trajet.statut === 'OUVERT',
@@ -122,7 +122,7 @@
                 <p><strong>Heure :</strong> {{ trajet.heureDepart }} → {{ trajet.heureArrivee }}</p>
                 <p><strong>Prix :</strong> {{ trajet.prixPersonne }} €</p>
                 <p><strong>Voiture :</strong> {{ trajet.voiture?.marque }} {{ trajet.voiture?.modele }} ({{ trajet.voiture?.energie }})</p>
-                <p><strong>Places :</strong> {{ trajet.nbPlace }} | <strong>Statut : </strong>
+                <p><strong>Places Disponibles :</strong> {{ trajet.nbPlace }} | <strong>Statut : </strong>
                   <span class="badge"
                         [ngClass]="{
                           'bg-success': trajet.statut === 'OUVERT',
@@ -133,7 +133,7 @@
                 <p><strong>Conducteur :</strong> {{ trajet.conducteur?.prenom }} {{ trajet.conducteur?.nom }}</p>
                 @if (type === 'OUVERT') {
                   <button class="btn btn-outline-danger btn-sm mt-2"
-                          (click)="annulerCovoiturage(trajet.covoiturageId)">
+                          (click)="annulerCovoiturage(trajet)">
                     Annuler
                   </button>
                 }

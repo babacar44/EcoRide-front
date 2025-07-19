@@ -47,7 +47,7 @@ export class HistoriqueCovoiturage {
     return this.openTrajets().includes(id);
   }
 
-  async annulerCovoiturage(id: number) {
+  async annulerCovoiturage(trajet: Covoiturage) {
     const result2 = await Swal.fire({
       title: 'Annulation définitive',
       text: 'Voulez-vous vraiment annuler ce covoiturage ?',
@@ -65,7 +65,7 @@ export class HistoriqueCovoiturage {
       }
     });
     if (!result2.isConfirmed) return;
-      this.covoiturageService.annulerCovoiturage(id).subscribe({
+      this.covoiturageService.annulerCovoiturage(trajet).subscribe({
         next: async () => {
           await Swal.fire({
             icon: 'success',

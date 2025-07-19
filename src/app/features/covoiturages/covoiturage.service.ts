@@ -42,8 +42,9 @@ export class CovoiturageService {
     return this.http.get<Covoiturage[]>(`${this.BASE_URL}/mes-trajets-passager`);
   }
 
-  annulerCovoiturage(id: number) {
-    return this.http.put(`${this.BASE_URL}/annuler`, {body : {'covoiturageId': id}});
+  annulerCovoiturage(trajet: Covoiturage) {
+    console.log(trajet)
+    return this.http.put(`${this.BASE_URL}/annuler`, trajet);
   }
 
   annulerParticipation(id: number) {
