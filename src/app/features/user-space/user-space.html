@@ -8,6 +8,6 @@
   @if (roleEcoride() === 'CHAUFFEUR' || roleEcoride() === 'BOTH') {
     <app-voyage-form [voitures]="voitures()" />
   }
-    <app-historique-covoiturage />
+    <app-historique-covoiturage [roleEcoride]="roleEcoride()" />
 </div>
 

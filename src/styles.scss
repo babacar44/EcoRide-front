@@ -40,3 +40,17 @@ button, .btn {
   font-weight: 700;
   text-transform: uppercase;
 }
+
+#etoiles .star {
+  font-size: 1.8rem;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  &.hovered,
+  &.selected {
+    color: #FFD700;
+  }
+  svg {
+    fill: currentColor !important;
+  }
+}

@@ -1,8 +1,9 @@
-import {Component, computed, inject, signal} from '@angular/core';
+import {Component, computed, inject, Input, signal} from '@angular/core';
 import {Covoiturage} from '../../../../core/models/covoiturage.model';
 import {CovoiturageService} from '../../../covoiturages/covoiturage.service';
 import Swal from 'sweetalert2';
 import {NgClass} from '@angular/common';
+import {Avis} from '../../../../core/models/avis.model';
 
 @Component({
   selector: 'app-historique-covoiturage',
@@ -139,7 +140,8 @@ export class HistoriqueCovoiturage {
     console.log(list)
     const byStatut: Record<string, Covoiturage[]> = {
       OUVERT: [],
-      FERME: [],
+      EN_COURS: [],
+      TERMINE: [],
       ANNULE: []
     };
 
@@ -162,7 +164,8 @@ export class HistoriqueCovoiturage {
     const list = this.historiqueConducteur();
     const byStatut: Record<string, Covoiturage[]> = {
       OUVERT: [],
-      FERME: [],
+      EN_COURS: [],
+      TERMINE: [],
       ANNULE: []
     };
 
@@ -185,9 +188,11 @@ export class HistoriqueCovoiturage {
 
   readonly pageCovoiturage = signal<Record<string, number>>({
     OUVERT: 1,
-    FERME: 1,
+    EN_COURS: 1,
+    TERMINE: 1,
     ANNULE: 1
   });
+  @Input() roleEcoride!: "PASSAGER" | "CHAUFFEUR" | "BOTH";
 
   changerPageCovoiturage(statut: string, page: number) {
     this.pageCovoiturage.update(current => ({
@@ -195,4 +200,187 @@ export class HistoriqueCovoiturage {
       [statut]: page
     }));
   }
+
+  async demarrerCovoiturage(trajet: Covoiturage) {
+    const result2 = await Swal.fire({
+      title: 'Démarrer le trajet',
+      text: 'Confirmez-vous le démarrage ?',
+      icon: 'warning',
+      confirmButtonText: 'Confirmer',
+      cancelButtonText: 'Annuler',
+      showCancelButton: true,
+      confirmButtonColor: '#4caf50',
+      cancelButtonColor: '#ccc',
+      customClass: {
+        title: 'swal-title',
+        popup: 'swal-popup',
+        confirmButton: 'swal-confirm',
+        cancelButton: 'swal-cancel'
+      }
+    });
+    if (!result2.isConfirmed) return;
+    this.covoiturageService.demarrer(trajet).subscribe({
+      next: () => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Trajet démarré !',
+          confirmButtonColor: '#4caf50'
+        });
+        this.loadHistorique();
+      },
+      error: () => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Impossible de démarrer le trajet.',
+          confirmButtonColor: '#4caf50'
+        });
+      }
+    });
+  }
+
+  async terminerCovoiturage(trajet: Covoiturage) {
+    const result2 = await Swal.fire({
+      title: 'Terminer le trajet',
+      text: 'Confirmez-vous la fin du trajet ?',
+      icon: 'warning',
+      confirmButtonText: 'Confirmer',
+      cancelButtonText: 'Annuler',
+      showCancelButton: true,
+      confirmButtonColor: '#4caf50',
+      cancelButtonColor: '#ccc',
+      customClass: {
+        title: 'swal-title',
+        popup: 'swal-popup',
+        confirmButton: 'swal-confirm',
+        cancelButton: 'swal-cancel'
+      }
+    });
+    if (!result2.isConfirmed) return;
+    this.covoiturageService.terminer(trajet).subscribe({
+      next: () => {
+        this.loadHistorique();
+        Swal.fire({
+          icon: 'success',
+          title: 'Trajet terminé !',
+          text: 'Les passagers ont été notifiés.',
+          confirmButtonColor: '#4caf50'
+        });
+      },
+      error: () => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Impossible de clôturer le trajet.',
+          confirmButtonColor: '#4caf50'
+        });
+      }
+    });
+  }
+
+  async laisserAvis(covoiturageId: number) {
+    Swal.fire({
+      title: 'Votre retour sur ce trajet',
+      html:
+          `
+      <div class="text-start">
+        <label class="form-label fw-bold">Le trajet s'est-il bien passé ?</label><br/>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="statutAvis" id="avisOui" value="true" checked>
+          <label class="form-check-label" for="avisOui">Oui</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="statutAvis" id="avisNon" value="false">
+          <label class="form-check-label" for="avisNon">Non</label>
+        </div>
+      </div>
+
+      <div class="form-group text-start mt-3">
+        <label class="form-label fw-bold">Votre commentaire</label>
+        <textarea id="commentaire" class="form-control" rows="3" placeholder="Racontez-nous..."></textarea>
+      </div>
+
+      <div class="form-group text-start mt-3">
+        <label class="form-label fw-bold">Note</label><br/>
+        <div id="etoiles">
+            <i class="star bi bi-star-fill" data-value="1"></i>
+            <i class="star bi bi-star-fill" data-value="2"></i>
+            <i class="star bi bi-star-fill" data-value="3"></i>
+            <i class="star bi bi-star-fill" data-value="4"></i>
+            <i class="star bi bi-star-fill" data-value="5"></i>
+        </div>
+      </div>
+      `,
+      focusConfirm: false,
+      confirmButtonText: 'Envoyer',
+      confirmButtonColor: '#4caf50',
+      showCancelButton: true,
+      preConfirm: () => {
+        const statut = document.querySelector<HTMLInputElement>('input[name="statutAvis"]:checked')?.value === 'true';
+        const commentaire = (document.getElementById('commentaire') as HTMLTextAreaElement)?.value ?? '';
+        const note = document.querySelectorAll('.star.selected').length;
+
+        return {
+          covoiturageId,
+          statut,
+          commentaire,
+          note: +note
+        };
+      },
+      didOpen: () => {
+        const stars = document.querySelectorAll<HTMLElement>('#etoiles .star');
+
+        stars.forEach((star, idx) => {
+          const value = +star.dataset['value']!;
+
+          // Hover effect
+          star.addEventListener('mouseover', () => {
+            stars.forEach(s => s.classList.remove('hovered'));
+            for (let i = 0; i < value; i++) {
+              stars[i].classList.add('hovered');
+            }
+          });
+
+          star.addEventListener('mouseout', () => {
+            stars.forEach(s => s.classList.remove('hovered'));
+          });
+
+          // Click selection
+          star.addEventListener('click', () => {
+            stars.forEach(s => s.classList.remove('selected'));
+            for (let i = 0; i < value; i++) {
+              stars[i].classList.add('selected');
+            }
+          });
+        });
+      }
+    }).then(result => {
+      console.log(result)
+      if (result.isConfirmed && result.value) {
+        const avis: Avis = result.value;
+        console.log(avis);
+        this.covoiturageService.envoyerAvis(avis).subscribe({
+          next: () => {
+            this.loadHistorique();
+            Swal.fire({
+              icon: 'success',
+              title: 'Merci pour votre retour !',
+              timer: 2000,
+              showConfirmButton: false
+            });
+          },
+          error: () => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Erreur',
+              text: "Impossible d'émettre un avis pour le moment",
+              confirmButtonColor: '#4caf50'
+            });
+          }
+        });
+      }
+    });
+  }
+
+
 }

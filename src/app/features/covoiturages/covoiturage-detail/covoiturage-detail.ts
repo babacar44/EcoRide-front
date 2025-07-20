@@ -32,38 +32,49 @@ export class CovoiturageDetail {
   readonly user = signal<Utilisateur | null>(null);
   constructor() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-
     // On récupère la liste complète déjà chargée
-    const covoiturages = this.covoiturageService.covoiturages(); // <-- signal global
+    this.covoiturageService.rechercherById(id).subscribe(dataCovoiturage => {
+      const start = new Date(`2000-01-01T${dataCovoiturage.heureDepart}`);
+      const end = new Date(`2000-01-01T${dataCovoiturage.heureArrivee}`);
 
-    const selected = covoiturages.find(c => c.covoiturageId === id);
+      // Gestion traversée minuit
+      if (end < start) end.setHours(end.getHours() + 24);
 
-    if (selected) {
-      this.covoiturage.set(selected);
-      // Mock préférences
-      this.preferences.set({
-        musique: Math.random() > 0.3,
-        fumeur: Math.random() > 0.7,
-        animaux: Math.random() > 0.5
-      });
+      const dureeMin = (end.getTime() - start.getTime()) / 60000;
 
-      // Mock avis
-      this.avis.set(
-        Math.random() > 0.5
-          ? "Conducteur ponctuel et agréable."
-          : "Très bon trajet, je recommande !"
-      );
-    } else {
-      // fallback : appel API si besoin (optionnel)
-      console.warn('Covoiturage non trouvé dans la liste');
-    }
-    if (this.auth.isAuthenticated()){
-      console.log("zzzzzzzzzzz")
-      this.auth.getUserInfo().subscribe(data => {
-        console.log(data)
-        this.user.set(data);
-      })
-    }
+      let selected =  {
+        ...dataCovoiturage,
+        duree: dureeMin,
+        conducteur: {
+          ...(dataCovoiturage.conducteur as Utilisateur),
+          note: Math.floor(Math.random() * 2) + 4
+        }
+      };
+      if (selected) {
+        // @ts-ignore
+        this.covoiturage.set(selected);
+        // Mock préférences
+        this.preferences.set({
+          musique: Math.random() > 0.3,
+          fumeur: Math.random() > 0.7,
+          animaux: Math.random() > 0.5
+        });
+
+        // Mock avis
+        this.avis.set(
+          Math.random() > 0.5
+            ? "Conducteur ponctuel et agréable."
+            : "Très bon trajet, je recommande !"
+        );
+      } else {
+        console.warn('Covoiturage non trouvé dans la liste');
+      }
+    });
+      if (this.auth.isAuthenticated()){
+        this.auth.getUserInfo().subscribe(data => {
+          this.user.set(data);
+        })
+      }
   }
 
 
@@ -145,6 +156,9 @@ export class CovoiturageDetail {
             ...c!,
             nbPlace: c!.nbPlace - 1
           }));
+          localStorage.removeItem('pendingCovoiturage');
+          localStorage.removeItem('redirectAfterLogin');
+          this.router.navigate(['/accueil']);
         },
         error: async (err) => {
           console.log(err)
