@@ -45,4 +45,12 @@ export class EmployeService {
     return this.http.post<void>(`${this.api}/valider`, body);
   }
 
+  validerAvis(id: number): Observable<void> {
+    return this.http.post<void>(`${this.api}/avis/${id}/valider`, {});
+  }
+
+  getAvisEnAttente(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.api}/avis-attente`);
+  }
+
 }
