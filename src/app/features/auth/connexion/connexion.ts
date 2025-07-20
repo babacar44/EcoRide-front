@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-connexion',
@@ -20,9 +21,14 @@ private auth = inject(AuthService);
   private router = inject(Router);
   private http = inject(HttpClient);
 
-  login() {
+  async login() {
     if (!this.email || !this.password) {
-      alert('Veuillez entrer vos identifiants');
+      await Swal.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: 'Veuillez entrer vos identifiants',
+        confirmButtonColor: '#4caf50'
+      });
       return;
     }
 
@@ -42,9 +48,13 @@ private auth = inject(AuthService);
             this.router.navigate(['/']);
           }
         },
-        error: (err) => {
-          console.error();
-          alert('Échec de la connexion. Vérifiez vos identifiants.');
+        error: async (err) => {
+          await Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: 'Échec de la connexion. Vérifiez vos identifiants.',
+            confirmButtonColor: '#4caf50'
+          });
         }
       });
   }

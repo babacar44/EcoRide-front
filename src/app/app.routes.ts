@@ -9,6 +9,8 @@ import {Inscription} from './features/auth/inscription/inscription';
 import {UserSpace} from './features/user-space/user-space';
 import {EmployeSpace} from './features/employe-space/employe-space';
 import {employeGuard} from './core/guards/employe.guard';
+import {adminGuard} from './core/guards/admin.guard';
+import {userGuard} from './core/guards/user.guard';
 
 export const routes: Routes = [
   {
@@ -21,11 +23,20 @@ export const routes: Routes = [
       { path: 'covoiturages/:id', component: CovoiturageDetail },
       { path: 'connexion', component: Connexion },
       { path: 'inscription', component: Inscription },
-      { path: 'espace-utilisateur', component: UserSpace },
+      {
+        path: 'espace-utilisateur',
+        canActivate: [userGuard],
+        loadComponent: () => import('./features/user-space/user-space').then(m => m.UserSpace)
+      },
       {
         path: 'employe',
         canActivate: [employeGuard],
         loadComponent: () => import('./features/employe-space/employe-space').then(m => m.EmployeSpace)
+      },
+      {
+        path: 'admin',
+        canActivate: [adminGuard],
+        loadComponent: () => import('./features/admin-space/admin-space').then(m => m.AdminSpace)
       }
     ]
   }

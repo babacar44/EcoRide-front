@@ -161,7 +161,6 @@ export class CovoiturageDetail {
           this.router.navigate(['/accueil']);
         },
         error: async (err) => {
-          console.log(err)
           await Swal.fire({
             icon: 'error',
             title: 'Erreur',

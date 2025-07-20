@@ -28,7 +28,7 @@ export class VoyageForm {
     immatriculation: ''
   });
 
-  envoyer(form: NgForm) {
+  async envoyer(form: NgForm) {
     if (!form.valid) return;
     const data = this.voyagerFormData();
     if (data.immatriculation && data.lieuDepart && data.lieuArrivee &&
@@ -62,7 +62,12 @@ export class VoyageForm {
         }
       });
     } else {
-      alert('Tous les champs sont requis.');
+      await Swal.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: 'Tous les champs sont requis.',
+        confirmButtonColor: '#4caf50'
+      });
     }
   }
 

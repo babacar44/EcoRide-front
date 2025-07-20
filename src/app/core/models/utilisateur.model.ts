@@ -1,6 +1,7 @@
 export interface Utilisateur {
   utilisateurId: number;
   nom: string;
+  role: string;
   prenom: string;
   email: string;
   pseudo: string;

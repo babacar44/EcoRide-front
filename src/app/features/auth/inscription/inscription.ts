@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-inscription',
@@ -49,7 +50,14 @@ export class Inscription {
           this.router.navigate(['/']);
         }
       },
-      error: () => alert("Erreur lors de l'inscription"),
+      error: async () => {
+        await Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Erreur lors de l\'inscription',
+          confirmButtonColor: '#4caf50'
+        });
+      },
     });
   }
 }
