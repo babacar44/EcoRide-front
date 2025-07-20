@@ -7,6 +7,8 @@ import {CovoiturageDetail} from './features/covoiturages/covoiturage-detail/covo
 import {Connexion} from './features/auth/connexion/connexion';
 import {Inscription} from './features/auth/inscription/inscription';
 import {UserSpace} from './features/user-space/user-space';
+import {EmployeSpace} from './features/employe-space/employe-space';
+import {employeGuard} from './core/guards/employe.guard';
 
 export const routes: Routes = [
   {
@@ -20,7 +22,11 @@ export const routes: Routes = [
       { path: 'connexion', component: Connexion },
       { path: 'inscription', component: Inscription },
       { path: 'espace-utilisateur', component: UserSpace },
-
+      {
+        path: 'employe',
+        canActivate: [employeGuard],
+        loadComponent: () => import('./features/employe-space/employe-space').then(m => m.EmployeSpace)
+      }
     ]
   }
 ];

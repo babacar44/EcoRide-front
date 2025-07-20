@@ -24,6 +24,13 @@
           {{ auth.userPseudo() }}
         </a>
       </li>
+      @if (auth.userRole() === 'ROLE_EMPLOYE') {
+        <li>
+          <a routerLink="/employe">
+            <i class="bi bi-person-circle me-1"></i>
+            Espace Employé</a>
+        </li>
+      }
     }
   </ul>
 
