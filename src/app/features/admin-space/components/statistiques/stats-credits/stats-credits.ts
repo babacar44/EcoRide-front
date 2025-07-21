@@ -11,7 +11,7 @@ Chart.register(...registerables);
 })
 export class StatsCredits {
   private readonly adminService = inject(AdminService);
-  readonly data = signal<{ date: string, totalCredits: number }[]>([]);
+  readonly data = signal<{ date: string, credits: number }[]>([]);
 
   constructor() {
     this.adminService.getStatsCreditsParJour().subscribe(res => {
@@ -20,11 +20,12 @@ export class StatsCredits {
     });
   }
 
+
   initChart() {
     const canvas = document.getElementById('chartCredits') as HTMLCanvasElement;
 
     const labels = this.data().map(e => e.date);
-    const values = this.data().map(e => e.totalCredits);
+    const values = this.data().map(e => e.credits);
 
     new Chart(canvas, {
       type: 'bar',

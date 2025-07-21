@@ -1,12 +1,17 @@
 .container {
-  max-width: 1200px;
-}
-
-h2 {
   font-family: 'Poppins', sans-serif;
-  font-weight: 600;
+
+  h2 {
+    font-weight: 600;
+  }
+
+  .btn-group .btn.active {
+    background-color: #4caf50;
+    color: white;
+  }
+
+  .content {
+    margin-top: 2rem;
+  }
 }
 
-.row {
-  margin-top: 2rem;
-}

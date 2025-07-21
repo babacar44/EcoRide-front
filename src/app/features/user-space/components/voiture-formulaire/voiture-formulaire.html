@@ -1,116 +1,107 @@
-@if (editionActive()) {
-  <hr class="my-4" />
-}
-<div class="text-end mb-3">
-      <button class="btn btn-ecoride" type="button" (click)="activerEdition()">Modifier mes informations</button>
+<form #form="ngForm" (ngSubmit)="enregistrerInfos(form)">
+  <div class="mb-3">
+    <label for="role" class="form-label">Je suis :</label>
+    <select class="form-select"
+            id="role"
+            required
+            [ngModel]="roleEcoride()"
+            (ngModelChange)="roleEcorideChange.emit($event)"
+            name="roleEcoride">
+      <option value="PASSAGER">Passager</option>
+      <option value="CHAUFFEUR">Chauffeur</option>
+      <option value="BOTH">Passager + Chauffeur</option>
+    </select>
   </div>
-  @if (editionActive()) {
-    <form #form="ngForm" (ngSubmit)="enregistrerInfos(form)">
-      <div class="mb-3">
-        <label for="role" class="form-label">Je suis :</label>
-        <select class="form-select"
-                id="role"
-                required
-                [ngModel]="roleEcoride()"
-                (ngModelChange)="roleEcorideChange.emit($event)"
-                name="roleEcoride">
-          <option value="PASSAGER">Passager</option>
-          <option value="CHAUFFEUR">Chauffeur</option>
-          <option value="BOTH">Passager + Chauffeur</option>
-        </select>
+
+  @if (roleEcoride() !== 'PASSAGER') {
+    @for(voiture of voitures(); track $index; let i = $index) {
+      <div class="border p-3 mb-4 rounded">
+        <h5>Véhicule {{ i + 1 }}</h5>
+
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label">Immatriculation</label>
+            <input class="form-control" name="immatriculation{{i}}" [(ngModel)]="voiture.immatriculation" required />
+            @if (form.submitted && !form.controls['immatriculation'+i].valid) {
+              <small class="text-danger">Champ requis</small>
+            }
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Date immatriculation</label>
+            <input type="date" class="form-control" name="date{{i}}" [(ngModel)]="voiture.datePremiereImmatriculation" required />
+            @if (form.submitted && !form.controls['date'+i].valid) {
+              <small class="text-danger">Date requise</small>
+            }
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Marque</label>
+            <input class="form-control" name="marque{{i}}" [(ngModel)]="voiture.marque" required />
+            @if (form.submitted && !form.controls['marque'+i].valid) {
+              <small class="text-danger">Champ requis</small>
+            }
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Modèle</label>
+            <input class="form-control" name="modele{{i}}" [(ngModel)]="voiture.modele" required />
+            @if (form.submitted && !form.controls['modele'+i].valid) {
+              <small class="text-danger">Champ requis</small>
+            }
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Couleur</label>
+            <input class="form-control" name="couleur{{i}}" [(ngModel)]="voiture.couleur" required />
+            @if (form.submitted && !form.controls['couleur'+i].valid) {
+              <small class="text-danger">Champ requis</small>
+            }
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Énergie</label>
+            <select class="form-select" name="energie{{i}}" [(ngModel)]="voiture.energie" required>
+              <option value="">Choisir</option>
+              <option value="ELECTRIQUE">Électrique</option>
+              <option value="ESSENCE">Essence</option>
+              <option value="DIESEL">Diesel</option>
+              <option value="HYBRIDE">Hybride</option>
+            </select>
+            @if (form.submitted && !form.controls['energie'+i].valid) {
+              <small class="text-danger">Champ requis</small>
+            }
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Places</label>
+            <input type="number" class="form-control" name="nbPlaces{{i}}" [(ngModel)]="voiture.nbPlaces" min="1" required />
+            @if (form.submitted && !form.controls['nbPlaces'+i].valid) {
+              <small class="text-danger">Champ requis</small>
+            }
+          </div>
+        </div>
+
+        <div class="mt-2 text-end">
+          <button type="button" class="btn btn-outline-danger btn-sm" (click)="removeVoiture(i, voiture.immatriculation)">Supprimer</button>
+        </div>
       </div>
+    }
 
-      @if (roleEcoride() !== 'PASSAGER') {
-        @for(voiture of voitures(); track $index; let i = $index) {
-          <div class="border p-3 mb-4 rounded">
-            <h5>Véhicule {{ i + 1 }}</h5>
+    <div class="mb-4 text-center">
+      <button type="button" class="btn btn-outline-success" (click)="ajouterVoiture()">Ajouter un véhicule</button>
+    </div>
 
-            <div class="row g-3">
-              <div class="col-md-4">
-                <label class="form-label">Immatriculation</label>
-                <input class="form-control" name="immatriculation{{i}}" [(ngModel)]="voiture.immatriculation" required />
-                @if (form.submitted && !form.controls['immatriculation'+i].valid) {
-                  <small class="text-danger">Champ requis</small>
-                }
-              </div>
-              <div class="col-md-4">
-                <label class="form-label">Date immatriculation</label>
-                <input type="date" class="form-control" name="date{{i}}" [(ngModel)]="voiture.datePremiereImmatriculation" required />
-                @if (form.submitted && !form.controls['date'+i].valid) {
-                  <small class="text-danger">Date requise</small>
-                }
-              </div>
-              <div class="col-md-4">
-                <label class="form-label">Marque</label>
-                <input class="form-control" name="marque{{i}}" [(ngModel)]="voiture.marque" required />
-                @if (form.submitted && !form.controls['marque'+i].valid) {
-                  <small class="text-danger">Champ requis</small>
-                }
-              </div>
-              <div class="col-md-4">
-                <label class="form-label">Modèle</label>
-                <input class="form-control" name="modele{{i}}" [(ngModel)]="voiture.modele" required />
-                @if (form.submitted && !form.controls['modele'+i].valid) {
-                  <small class="text-danger">Champ requis</small>
-                }
-              </div>
-              <div class="col-md-4">
-                <label class="form-label">Couleur</label>
-                <input class="form-control" name="couleur{{i}}" [(ngModel)]="voiture.couleur" required />
-                @if (form.submitted && !form.controls['couleur'+i].valid) {
-                  <small class="text-danger">Champ requis</small>
-                }
-              </div>
-              <div class="col-md-4">
-                <label class="form-label">Énergie</label>
-                <select class="form-select" name="energie{{i}}" [(ngModel)]="voiture.energie" required>
-                  <option value="">Choisir</option>
-                  <option value="ELECTRIQUE">Électrique</option>
-                  <option value="ESSENCE">Essence</option>
-                  <option value="DIESEL">Diesel</option>
-                  <option value="HYBRIDE">Hybride</option>
-                </select>
-                @if (form.submitted && !form.controls['energie'+i].valid) {
-                  <small class="text-danger">Champ requis</small>
-                }
-              </div>
-              <div class="col-md-4">
-                <label class="form-label">Places</label>
-                <input type="number" class="form-control" name="nbPlaces{{i}}" [(ngModel)]="voiture.nbPlaces" min="1" required />
-                @if (form.submitted && !form.controls['nbPlaces'+i].valid) {
-                  <small class="text-danger">Champ requis</small>
-                }
-              </div>
-            </div>
-
-            <div class="mt-2 text-end">
-              <button type="button" class="btn btn-outline-danger btn-sm" (click)="removeVoiture(i, voiture.immatriculation)">Supprimer</button>
-            </div>
-          </div>
-        }
-
-        <div class="mb-4 text-center">
-          <button type="button" class="btn btn-outline-success" (click)="ajouterVoiture()">Ajouter un véhicule</button>
-        </div>
-
-        <div class="mb-3">
-          <h5>Préférences</h5>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" [(ngModel)]="preferences().fumeur" name="fumeur" />
-            <label class="form-check-label">Fumeur accepté</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" [(ngModel)]="preferences().animaux" name="animaux" />
-            <label class="form-check-label">Animaux acceptés</label>
-          </div>
-          <div class="mt-2">
-            <label>Autres préférences</label>
-            <input type="text" class="form-control" [(ngModel)]="preferences().autres" name="autres" />
-          </div>
-        </div>
-      }
-
-      <button class="btn btn-success mt-4" [disabled]="form.invalid">Enregistrer</button>
-    </form>
+    <div class="mb-3">
+      <h5>Préférences</h5>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" [(ngModel)]="preferences().fumeur" name="fumeur" />
+        <label class="form-check-label">Fumeur accepté</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" [(ngModel)]="preferences().animaux" name="animaux" />
+        <label class="form-check-label">Animaux acceptés</label>
+      </div>
+      <div class="mt-2">
+        <label>Autres préférences</label>
+        <input type="text" class="form-control" [(ngModel)]="preferences().autres" name="autres" />
+      </div>
+    </div>
   }
 
+  <button class="btn btn-success mt-4" [disabled]="form.invalid">Enregistrer</button>
+</form>

@@ -12,5 +12,10 @@ import {EmployeService} from './services/employe-service';
 })
 export class EmployeSpace {
 
+  // @ts-ignore
+  activeTab: 'signalements' | 'validation' = 'utilisateurs';
 
+  switchTab(tab: 'signalements' | 'validation') {
+    this.activeTab = tab;
+  }
 }

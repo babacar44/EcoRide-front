@@ -30,6 +30,6 @@ export class AdminService {
   }
 
   getStatsCreditsParJour() {
-    return this.http.get<{ date: string, totalCredits: number }[]>(`${this.API}/admin/stats/credits-par-jour`);
+    return this.http.get<{ date: string, credits: number }[]>(`${this.API}/admin/stats/credits-par-jour`);
   }
 }

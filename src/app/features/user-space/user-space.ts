@@ -8,11 +8,14 @@ import {VoitureFormulaire} from './components/voiture-formulaire/voiture-formula
 import {VoyageForm} from './components/voyage-form/voyage-form';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {HistoriqueCovoiturage} from './components/historique-covoiturage/historique-covoiturage';
+import {AvisValidation} from '../employe-space/components/avis-validation/avis-validation';
+import {Signalements} from '../employe-space/components/signalements/signalements';
+import {HistoriqueTrajet} from './components/historique-trajet/historique-trajet';
 
 @Component({
   selector: 'app-user-space',
   standalone: true,
-  imports: [CommonModule, FormsModule, VoitureFormulaire, VoyageForm, HistoriqueCovoiturage],
+  imports: [CommonModule, FormsModule, VoitureFormulaire, VoyageForm, HistoriqueCovoiturage, HistoriqueTrajet],
   templateUrl: './user-space.html',
   styleUrl: './user-space.scss'
 })
@@ -25,6 +28,12 @@ export class UserSpace {
     autres: ''
   };
 
+  // @ts-ignore
+  activeTab: 'voitures' | 'trajets' | 'covoiturages' | 'publier' = 'covoiturages';
+
+  switchTab(tab: 'voitures' | 'trajets' | 'covoiturages'| 'publier' ) {
+    this.activeTab = tab;
+  }
   voitures = signal([
     {
       immatriculation: '',
