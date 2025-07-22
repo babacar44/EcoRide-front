@@ -6,11 +6,10 @@ import {Covoiturages} from './features/covoiturages/covoiturages';
 import {CovoiturageDetail} from './features/covoiturages/covoiturage-detail/covoiturage-detail';
 import {Connexion} from './features/auth/connexion/connexion';
 import {Inscription} from './features/auth/inscription/inscription';
-import {UserSpace} from './features/user-space/user-space';
-import {EmployeSpace} from './features/employe-space/employe-space';
 import {employeGuard} from './core/guards/employe.guard';
 import {adminGuard} from './core/guards/admin.guard';
 import {userGuard} from './core/guards/user.guard';
+import {Contact} from './features/contact/contact';
 
 export const routes: Routes = [
   {
@@ -23,6 +22,10 @@ export const routes: Routes = [
       { path: 'covoiturages/:id', component: CovoiturageDetail },
       { path: 'connexion', component: Connexion },
       { path: 'inscription', component: Inscription },
+      {
+        path: 'contact',
+        component: Contact,
+      },
       {
         path: 'espace-utilisateur',
         canActivate: [userGuard],

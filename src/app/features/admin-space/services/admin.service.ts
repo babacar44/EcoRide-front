@@ -3,13 +3,14 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Utilisateur} from '../../../core/models/utilisateur.model';
 import {RegisterRequest} from '../../../core/models/auth.model';
+import {environment} from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
 
-  private readonly API = 'http://localhost:8083/api';
+  private readonly API = `${environment.apiUrl}/api`;
 
   constructor(private http: HttpClient) {}
 

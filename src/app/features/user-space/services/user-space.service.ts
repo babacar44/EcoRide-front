@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import {UserSpaceForm} from '../../../core/models/user-space-form.model';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {environment} from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserSpaceService {
 
-  private readonly apiUrl = 'http://localhost:8083/api/espace-utilisateur'; // adapte le chemin
+  private readonly apiUrl = `${environment.apiUrl}/api/espace-utilisateur`;
 
   constructor(private http: HttpClient) {}
 

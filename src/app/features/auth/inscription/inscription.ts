@@ -41,7 +41,7 @@ export class Inscription {
 
     this.auth.register(payload).subscribe({
       next: (res) => {
-        this.auth.login(res.token); // connexion automatique
+        this.auth.login(res.token);
         const redirect = localStorage.getItem('redirectAfterLogin');
         if (redirect) {
           localStorage.removeItem('redirectAfterLogin');

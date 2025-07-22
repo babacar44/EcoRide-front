@@ -3,15 +3,16 @@ import {HttpClient} from '@angular/common/http';
 import {Covoiturage} from '../../core/models/covoiturage.model';
 import {Observable} from 'rxjs';
 import {Avis} from '../../core/models/avis.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CovoiturageService {
   private readonly http = inject(HttpClient);
-  private readonly BASE_URL = 'http://localhost:8083/api/covoiturages';
-  private readonly BASE_URL_PARTICIPATION = 'http://localhost:8083/api/participations';
-  private readonly BASE_URL_AVIS = 'http://localhost:8083/api/avis';
+  private readonly BASE_URL = `${environment.apiUrl}/api/covoiturages`;
+  private readonly BASE_URL_PARTICIPATION = `${environment.apiUrl}/api/participations`;
+  private readonly BASE_URL_AVIS = `${environment.apiUrl}/api/avis`;
 
   // Signal interne pour stocker la liste
   private readonly _covoiturages = signal<Covoiturage[]>([]);
@@ -37,7 +38,7 @@ export class CovoiturageService {
   }
 
   participerAuCovoiturage(covoiturageId: number): Observable<void> {
-    return this.http.post<void>('http://localhost:8083/api/participations', {
+    return this.http.post<void>(`${environment.apiUrl}/api/participations`, {
       covoiturageId
     });
   }

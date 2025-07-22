@@ -158,7 +158,7 @@ export class CovoiturageDetail {
           }));
           localStorage.removeItem('pendingCovoiturage');
           localStorage.removeItem('redirectAfterLogin');
-          this.router.navigate(['/accueil']);
+          this.router.navigate(['/']);
         },
         error: async (err) => {
           await Swal.fire({

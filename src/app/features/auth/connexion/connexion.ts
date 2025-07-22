@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-connexion',
@@ -34,7 +35,7 @@ private auth = inject(AuthService);
 
     const credentials = { email: this.email, password: this.password };
 
-    this.http.post<{ token: string }>('http://localhost:8083/auth/login', credentials)
+    this.http.post<{ token: string }>(`${environment.apiUrl}/auth/login`, credentials)
       .subscribe({
         next: (response) => {
           this.auth.login(response.token);

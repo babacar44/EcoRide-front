@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Signalement} from '../../../core/models/signalement.model';
+import {environment} from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeService {
 
-  private readonly api = 'http://localhost:8083/api/employe/signalements';
+  private readonly api = `${environment.apiUrl}/api/employe/signalements`;
 
   constructor(private http: HttpClient) {}
 

@@ -16,7 +16,7 @@
     } @else {
       <li><a (click)="handleLogout()">Déconnexion <span class="arrow">›</span></a></li>
     }
-    <li><a routerLink="/inscription" (click)="closeMenu()">Contact <span class="arrow">›</span></a></li>
+    <li><a routerLink="/contact" (click)="closeMenu()">Contact <span class="arrow">›</span></a></li>
     @if (auth.isAuthenticated()) {
       @if (auth.userRole() === 'ROLE_USER') {
         <li>

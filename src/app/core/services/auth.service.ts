@@ -3,6 +3,7 @@ import {RegisterRequest} from '../models/auth.model';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Utilisateur} from '../models/utilisateur.model';
+import {environment} from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -47,10 +48,10 @@ export class AuthService {
   }
 
   register(data: RegisterRequest) {
-    return this.http.post<{ token: string }>('http://localhost:8083/auth/register', data);
+    return this.http.post<{ token: string }>(`${environment.apiUrl}/auth/register`, data);
   }
 
   getUserInfo(){
-    return this.http.get<Utilisateur>('http://localhost:8083/api/utilisateurs/utilisateur/infos')
+    return this.http.get<Utilisateur>(`${environment.apiUrl}/api/utilisateurs/utilisateur/infos`)
   }
 }
