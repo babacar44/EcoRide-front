@@ -22,3 +22,16 @@ Avant d’installer le projet, tu dois avoir :
 3. Installer les dépendances :
    ```bash
    npm install
+
+4. Lancer le serveur local
+ng serve 
+
+Structure du projet
+
+src/
+├── app/
+│   ├── core/              # Services (auth, interceptors), modèles partagés
+│   ├── features/          # Pages principales (connexion, inscription, covoiturages, espace utilisateur...)
+│   ├── shared/            # Composants réutilisables
+│   ├── app.routes.ts      # Routing principal
+│   └── app.ts   # Composant racine
