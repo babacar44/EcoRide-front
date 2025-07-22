@@ -1,0 +1,68 @@
+.container {
+  padding-top: 2rem;
+
+  h2 {
+    font-weight: 600;
+    color: #2b2e4a;
+  }
+
+  .card {
+    border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      color: #4caf50;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-text {
+      font-size: 0.95rem;
+      color: #333;
+
+      strong {
+        color: #2b2e4a;
+      }
+    }
+    .card-title i,
+    .card-text i {
+      margin-right: 0.4rem;
+      color: #4caf50;
+    }
+
+    .btn {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: #555;
+
+  img {
+    width: 80px;
+    margin-bottom: 1.5rem;
+    opacity: 0.6;
+  }
+
+  h4 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #2b2e4a;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #777;
+  }
+}

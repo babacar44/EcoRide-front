@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import {RouterLink, RouterOutlet} from '@angular/router';
+import {Component, inject} from '@angular/core';
+import {Router, RouterLink, RouterOutlet} from '@angular/router';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-layout',
@@ -9,7 +10,9 @@ import {RouterLink, RouterOutlet} from '@angular/router';
 })
 export class Layout {
   menuOpen: boolean = false;
-
+  protected auth = inject(AuthService);
+  readonly isAuthenticated = this.auth.isAuthenticated;
+  private router = inject(Router);
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
     document.body.style.overflow = this.menuOpen ? 'hidden' : '';
@@ -18,7 +21,16 @@ export class Layout {
   closeMenu() {
     this.menuOpen = false;
     document.body.style.overflow =''
-
-
   }
+
+  logout() {
+    this.auth.logout();
+  }
+
+  handleLogout() {
+    this.logout();
+    this.closeMenu();
+    this.router.navigate(['/']);
+  }
+
 }

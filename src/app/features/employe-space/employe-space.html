@@ -1,0 +1,21 @@
+<div class="container mt-4">
+  <h2 class="text-success mb-4">Espace Employé</h2>
+
+  <div class="btn-group text-end mb-4">
+    <button class="btn btn-outline-success" [class.active]="activeTab === 'signalements'" (click)="switchTab('signalements')">
+      Gestion des signalements
+    </button>
+    <button class="btn btn-outline-success" [class.active]="activeTab === 'validation'" (click)="switchTab('validation')">
+      Gestion des avis
+    </button>
+  </div>
+
+  <div class="content">
+    @if (activeTab === 'signalements') {
+      <app-signalements />
+    }
+    @if (activeTab === 'validation') {
+      <app-avis-validation />
+    }
+  </div>
+</div>

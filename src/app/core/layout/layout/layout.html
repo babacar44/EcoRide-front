@@ -9,9 +9,38 @@
 
   <ul class="nav-links" [class.open]="menuOpen">
     <li><a routerLink="/" (click)="closeMenu()">Accueil <span class="arrow">›</span></a></li>
-    <li><a routerLink="/rides" (click)="closeMenu()">Covoiturages <span class="arrow">›</span></a></li>
-    <li><a routerLink="/connexion" (click)="closeMenu()">Connexion <span class="arrow">›</span></a></li>
-    <li><a routerLink="/inscription" (click)="closeMenu()">Inscription <span class="arrow">›</span></a></li>
+    <li><a routerLink="/covoiturages" (click)="closeMenu()">Covoiturages <span class="arrow">›</span></a></li>
+    @if (!isAuthenticated()) {
+      <li><a routerLink="/connexion" (click)="closeMenu()">Connexion <span class="arrow">›</span></a></li>
+      <li><a routerLink="/inscription">Inscription</a></li>
+    } @else {
+      <li><a (click)="handleLogout()">Déconnexion <span class="arrow">›</span></a></li>
+    }
+    <li><a routerLink="/contact" (click)="closeMenu()">Contact <span class="arrow">›</span></a></li>
+    @if (auth.isAuthenticated()) {
+      @if (auth.userRole() === 'ROLE_USER') {
+        <li>
+          <a routerLink="/espace-utilisateur">
+            <i class="bi bi-person-circle me-1"></i>
+            {{ auth.userPseudo() }}
+          </a>
+        </li>
+      }
+      @if (auth.userRole() === 'ROLE_EMPLOYE') {
+        <li>
+          <a routerLink="/employe">
+            <i class="bi bi-person-circle me-1"></i>
+            {{ auth.userPseudo() }}</a>
+        </li>
+      }
+      @if (auth.userRole() === 'ROLE_ADMIN') {
+        <li>
+          <a routerLink="/admin">
+            <i class="bi bi-person-circle me-1"></i>
+            {{ auth.userPseudo() }}</a>
+        </li>
+      }
+    }
   </ul>
 
 

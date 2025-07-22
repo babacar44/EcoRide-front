@@ -1,0 +1,53 @@
+<div class="avis-validation container mt-4">
+  <h3 class="text-success mb-4">📋 Avis à valider</h3>
+
+  @if (avisPagines().length === 0) {
+    <p class="text-muted">Aucun avis en attente de validation.</p>
+  }
+
+  <ul class="list-group">
+    @for (avis of avisPagines(); track avis.id) {
+      <li class="list-group-item shadow-sm mb-3">
+        <div class="d-flex justify-content-between align-items-center" (click)="toggleDetails(avis.id)">
+          <div>
+            <strong>Note :</strong> {{ avis.note }}/5 — <em>{{ avis.date }}</em>
+          </div>
+          <i class="bi" [ngClass]="isOpen(avis.id) ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+        </div>
+
+        @if (isOpen(avis.id)) {
+          <div class="mt-2">
+            <p>
+              <strong>Passager :</strong> {{ avis.passager.pseudo }} ({{ avis.passager.email }})<br />
+              <strong>Conducteur :</strong> {{ avis.conducteur.pseudo }} ({{ avis.conducteur.email }})
+            </p>
+            <p><strong>Commentaire :</strong></p>
+            <blockquote class="blockquote bg-light p-2 border-start border-primary rounded">
+              {{ avis.commentaire }}
+            </blockquote>
+            <div class="text-end mt-3">
+              <button class="btn btn-outline-success btn-sm mt-2" (click)="validerAvis(avis.id)">
+                ✅ Valider l'avis
+              </button>
+            </div>
+
+          </div>
+        }
+      </li>
+    }
+  </ul>
+
+  <!-- Pagination -->
+  @if (avis().length > 5) {
+    <nav class="d-flex justify-content-center mt-4">
+      <ul class="pagination">
+        @for (page of totalPages(); track page) {
+          <li class="page-item" [class.active]="page === currentPage()">
+            <button class="page-link" (click)="changerPage(page)">{{ page }}</button>
+          </li>
+        }
+      </ul>
+    </nav>
+  }
+
+</div>

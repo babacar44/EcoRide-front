@@ -1,0 +1,39 @@
+<div class="container mt-4">
+  <h2 class="text-success mb-4">Espace Utilisateur</h2>
+
+  <div class="btn-group text-end mb-4">
+    <button class="btn btn-outline-success" [class.active]="activeTab === 'voitures'" (click)="switchTab('voitures')">
+      Profil
+    </button>
+    <button class="btn btn-outline-success" [class.active]="activeTab === 'publier'" (click)="switchTab('publier')">
+     Publier un trajets
+    </button>
+    <button class="btn btn-outline-success" [class.active]="activeTab === 'covoiturages'" (click)="switchTab('covoiturages')">
+      Mes covoiturages
+    </button>
+    <button class="btn btn-outline-success" [class.active]="activeTab === 'trajets'" (click)="switchTab('trajets')">
+      Mes Trajets
+    </button>
+  </div>
+
+  <div class="content">
+    @if (activeTab === 'voitures') {
+      <app-voiture-formulaire
+        [voitures]="voitures()"
+        [roleEcoride]="roleEcoride"
+        (roleEcorideChange)="onRoleEcorideChange($event)"
+        [preferences]="preferences" />
+    }
+    @if (activeTab === 'publier') {
+      @if (roleEcoride() === 'CHAUFFEUR' || roleEcoride() === 'BOTH') {
+        <app-voyage-form [voitures]="voitures()" />
+      }
+    }
+    @if (activeTab === 'covoiturages') {
+      <app-historique-covoiturage [roleEcoride]="roleEcoride()" />
+    }
+    @if (activeTab === 'trajets') {
+      <app-historique-trajet [roleEcoride]="roleEcoride()" />
+    }
+  </div>
+</div>

@@ -1,0 +1,76 @@
+<section class="container py-4">
+  @if (covoiturage(); as c) {
+    <h2 class="mb-4">Détail du trajet</h2>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h4 class="card-title text-success">
+          <i class="bi bi-geo-alt-fill"></i> {{ c.lieuDepart }} → {{ c.lieuArrivee }}
+        </h4>
+        <ul class="list-unstyled mb-4">
+          <li><i class="bi bi-calendar-event me-2"></i> {{ c.dateDepart }}</li>
+          <li><i class="bi bi-clock me-2"></i> {{ c.heureDepart }} → {{ c.heureArrivee }}</li>
+          <li><i class="bi bi-hourglass-split me-2"></i> Durée : {{ c.duree }} min</li>
+          <li><i class="bi bi-currency-euro me-2"></i> {{ c.prixPersonne }} € / personne</li>
+          <li><i class="bi bi-people-fill me-2"></i> {{ c.nbPlace }} places disponibles</li>
+        </ul>
+
+        <h5 class="mt-4">Conducteur</h5>
+        <p>
+          <i class="bi bi-person-circle me-2"></i>
+          {{ c.conducteur?.prenom }} {{ c.conducteur?.nom }}<br />
+          <i class="bi bi-star-fill text-warning me-2"></i>
+          Note : {{ c.conducteur?.note ?? 'Non noté' }}/5
+        </p>
+
+        <h5>Véhicule</h5>
+        <p>
+          <i class="bi bi-car-front-fill me-2"></i>
+          {{ c.voiture?.marque }},{{ c.voiture?.modele }},
+          {{ c.voiture?.energie }}
+        </p>
+
+        <h5>Préférences conducteur</h5>
+        <ul>
+          @if (preferences(); as prefs){
+            <li>
+              <i class="me-1" [ngClass]="prefs.musique ? 'bi bi-music-note-beamed text-success' : 'bi bi-x-circle-fill text-danger'"></i>
+              {{ prefs.musique ? 'Aime écouter de la musique' : 'N’aime pas la musique' }}
+            </li>
+            <li>
+              <i class="me-1" [ngClass]="prefs.fumeur ? 'bi bi-check2-circle text-success' : 'bi bi-x-circle-fill text-danger'"></i>
+              {{ prefs.fumeur ? 'Accepte les fumeurs' : 'Ne fume pas' }}
+            </li>
+            <li>
+              <i class="me-1" [ngClass]="prefs.animaux ? 'bi bi-check2-circle text-success' : 'bi bi-x-circle-fill text-danger'"></i>
+              {{ prefs.animaux ? 'Accepte les animaux' : 'N’accepte pas les animaux' }}
+            </li>
+          }
+        </ul>
+
+        <h5>Avis</h5>
+        <blockquote class="blockquote">
+          @if (avis()){
+            <p>"{{ avis() }}"</p>
+            <footer class="blockquote-footer">Utilisateur anonyme</footer>
+          }
+        </blockquote>
+      </div>
+
+
+      <div class="card-footer bg-transparent d-flex justify-content-between align-items-center">
+        <a routerLink="/covoiturages"  [queryParams]="searchParams" class="btn btn-outline-secondary">← Retour à la liste</a>
+
+        <button class="btn btn-success" (click)="participer()" [disabled]="!canParticipate()">
+          Participer à ce trajet
+        </button>
+        @if (!afficherMessageSiCreditInsuffisant()) {
+          <small class="text-danger  d-block mt-2">
+            Crédit Insuffisant pour ce trajet
+          </small>
+        }
+      </div>
+    </div>
+  }
+
+</section>

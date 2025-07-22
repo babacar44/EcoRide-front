@@ -1,0 +1,46 @@
+<div class="container py-4">
+  <h2 class="mb-4">Trajets trouvés :</h2>
+
+  @if (covoiturages().length === 0) {
+    <div class="empty-state">
+      <img src="assets/icons/search-empty.png" alt="Aucun résultat" />
+      <h4>Aucun trajet trouvé</h4>
+      <p>Essayez avec une autre destination ou une autre date.</p>
+    </div>
+  }
+
+
+  <div class="row g-4">
+    @for (covoiturage of covoiturages(); track covoiturage.covoiturageId) {
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">
+              <i class="bi bi-geo-alt-fill text-success"></i>
+              {{ covoiturage.lieuDepart }} → {{ covoiturage.lieuArrivee }}
+            </h5>
+            <p class="card-text">
+              <i class="bi bi-calendar-event me-1"></i> {{ covoiturage.dateDepart }}<br />
+              <i class="bi bi-clock me-1"></i> {{ covoiturage.heureDepart }} → {{ covoiturage.heureArrivee }}<br />
+              <i class="bi bi-hourglass-split me-1"></i> {{ covoiturage.duree }} min<br />
+              <i class="bi bi-currency-euro me-1"></i> {{ covoiturage.prixPersonne }} €<br />
+              <i class="bi bi-person-circle me-1"></i> {{ covoiturage.conducteur?.prenom }} {{ covoiturage.conducteur?.nom }}<br />
+              <i class="bi bi-star-fill text-warning me-1"></i> {{ covoiturage.conducteur?.note }}/5<br />
+              <i class="bi bi-car-front me-1"></i>
+              {{ covoiturage.voiture?.modele }}, {{ covoiturage.voiture?.couleur }} ({{ covoiturage.voiture?.energie }})<br />
+              <i class="bi bi-people-fill me-1"></i> {{ covoiturage.nbPlace }} Places disponibles
+            </p>
+            <span class="badge bg-success">{{ covoiturage.statut }}</span>
+          </div>
+          <div class="card-footer bg-transparent border-0 text-end">
+            <a [routerLink]="['/covoiturages', covoiturage.covoiturageId]"
+               class="btn btn-outline-primary btn-sm">
+              Détails
+            </a>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
+

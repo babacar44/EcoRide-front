@@ -1,0 +1,43 @@
+<section class="covoiturages-page">
+  <app-search-bar (searchTriggered)="onSearchTriggered($event)" />
+</section>
+
+<section class="filters-section container my-4">
+  <form (ngSubmit)="applyFilters()" class="row gy-2 gx-3 align-items-end">
+    <div class="col-sm-6 col-md-3">
+      <label class="form-label d-block">
+        <input type="checkbox" [(ngModel)]="formFilters.eco" name="eco" class="form-check-input me-2" />
+        Écoresponsable
+      </label>
+    </div>
+
+    <div class="col-sm-6 col-md-3">
+      <label class="form-label w-100">
+        Prix max (€)
+        <input type="number" [(ngModel)]="formFilters.maxPrice" name="maxPrice" class="form-control" />
+      </label>
+    </div>
+
+    <div class="col-sm-6 col-md-3">
+      <label class="form-label w-100">
+        Durée max (min)
+        <input type="number" [(ngModel)]="formFilters.maxDuration" name="maxDuration" class="form-control" />
+      </label>
+    </div>
+
+    <div class="col-sm-6 col-md-3">
+      <label class="form-label w-100">
+        Note minimale
+        <input type="number" step="0.1" min="1" max="5" [(ngModel)]="formFilters.minRating" name="minRating" class="form-control" />
+      </label>
+    </div>
+
+    <div class="col-12 text-end mt-2">
+      <button type="submit" class="btn btn-outline-success btn-sm">Appliquer les filtres</button>
+    </div>
+  </form>
+</section>
+<section>
+  <app-covoiturages-list [covoiturages]="filteredCovoiturages()"></app-covoiturages-list>
+</section>
+
